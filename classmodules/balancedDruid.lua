@@ -60,28 +60,35 @@ function E:initBalanceDruid()
     _, data.activateManaPotionTexture = E.createPanelSwitchButton(self, 0, 0, 30, 30, data.balDruidFrame, 134762,
             function()
                 E.BALANCED_DRUID_DATA.activateManaPotion = true
-                C_Timer.After(5, function()  E.BALANCED_DRUID_DATA.activateManaPotion = false end)
+                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateManaPotion = false end)
                 E.actualizeBalanceDruidFrame()
             end)
 
     _, data.activateDarkRuneTexture = E.createPanelSwitchButton(self, 30, 0, 30, 30, data.balDruidFrame, 136192,
             function()
                 E.BALANCED_DRUID_DATA.activateDarkRune = true
-                C_Timer.After(5, function()  E.BALANCED_DRUID_DATA.activateDarkRune = false end)
+                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateDarkRune = false end)
                 E.actualizeBalanceDruidFrame()
             end)
 
     _, data.activateTrinketTexture = E.createPanelSwitchButton(self, 60, 0, 30, 30, data.balDruidFrame, 135659,
             function()
                 E.BALANCED_DRUID_DATA.activateTrinket = true
-                C_Timer.After(5, function()  E.BALANCED_DRUID_DATA.activateTrinket = false end)
+                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateTrinket = false end)
                 E.actualizeBalanceDruidFrame()
             end)
 
     _, data.activateDrumsTexture = E.createPanelSwitchButton(self, 90, 0, 30, 30, data.balDruidFrame, 133842,
             function()
                 E.BALANCED_DRUID_DATA.activateDrums = true
-                C_Timer.After(5, function()  E.BALANCED_DRUID_DATA.activateDrums = false end)
+                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateDrums = false end)
+                E.actualizeBalanceDruidFrame()
+            end)
+
+    _, data.activateInnervateTexture = E.createPanelSwitchButton(self, 120, 0, 30, 30, data.balDruidFrame, 136048,
+            function()
+                E.BALANCED_DRUID_DATA.activateInnervate = true
+                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateInnervate = false end)
                 E.actualizeBalanceDruidFrame()
             end)
 
@@ -104,6 +111,7 @@ function E:initBalanceDruid()
     data.activateDarkRune = false
     data.activateTrinket = false
     data.activateDrums = false
+    data.activateInnervate = false
 
     E.actualizeBalanceDruidFrame()
     data.balDruidFrame:Hide()
@@ -144,12 +152,19 @@ end
 
 function E:updateBalanceDruid()
     E.serializationData.profile = "bd_01";
-    
+
     E.serializationData.pmfd = isUsableBySpellAndDebuff("Moonfire", "Moonfire", true, 0)
     E.serializationData.pmf = isUsableSpell("Moonfire")
     E.serializationData.psf = isUsableSpell("Starfire")
     E.serializationData.pff = isUsableBySpellAndDebuff("Faerie Fire", "Faerie Fire", false, 5)
     E.serializationData.pis = isUsableBySpellAndDebuff("Insect Swarm", "Insect Swarm", false, 2)
+
+    if E.BALANCED_DRUID_DATA.activateManaPotion and getItemCD(22832) > 2 then E.BALANCED_DRUID_DATA.activateManaPotion = false end
+    if E.BALANCED_DRUID_DATA.activateDarkRune and getItemCD(20520) > 2 then E.BALANCED_DRUID_DATA.activateDarkRune = false end
+    if E.BALANCED_DRUID_DATA.activateTrinket and getTrinket1CD() > 2 then E.BALANCED_DRUID_DATA.activateTrinket = false end
+    if E.BALANCED_DRUID_DATA.activateDrums and getItemCD(185848) > 2 then E.BALANCED_DRUID_DATA.activateDrums = false end
+    if E.BALANCED_DRUID_DATA.activateInnervate and getSpellCD(29166) > 2 then E.BALANCED_DRUID_DATA.activateInnervate = false end
+
 
     E.serializationData.emf = E.BALANCED_DRUID_DATA.moonfireEnabled
     E.serializationData.esf = E.BALANCED_DRUID_DATA.starfireEnabled
@@ -161,8 +176,7 @@ function E:updateBalanceDruid()
     E.serializationData.adr = E.BALANCED_DRUID_DATA.activateDarkRune
     E.serializationData.at = E.BALANCED_DRUID_DATA.activateTrinket
     E.serializationData.ad = E.BALANCED_DRUID_DATA.activateDrums
-
-    E.serializationData.darkRuneCD = getItemCD(20520) > 0 -- dark rune item
+    E.serializationData.ai = E.BALANCED_DRUID_DATA.activateInnervate
 
     E.actualizeBalanceDruidFrame()
 end
@@ -194,6 +208,7 @@ function E:actualizeBalanceDruidFrame()
     E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateDarkRuneTexture, E.BALANCED_DRUID_DATA.activateDarkRune)
     E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateTrinketTexture, E.BALANCED_DRUID_DATA.activateTrinket)
     E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateDrumsTexture, E.BALANCED_DRUID_DATA.activateDrums)
+    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateInnervateTexture, E.BALANCED_DRUID_DATA.activateInnervate)
 
 end
 

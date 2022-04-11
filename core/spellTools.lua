@@ -44,8 +44,26 @@ function isAuraOnTarget(auraname, playerAura, remainingTime)
     return false;
 end
 
+function getSpellCD(spellID)
+    local startTime, duration = GetSpellCooldown(spellID)
+    return startTime + duration - GetTime()
+end
+
 function getItemCD(itemID)
-    startTime, duration, enable = GetItemCooldown(itemID)
+    local startTime, duration, enable = GetItemCooldown(itemID)
+    return startTime + duration - GetTime()
+end
+
+function getTrinket1CD()
+    return getInventoryItemCD(13)
+end
+
+function getTrinket2CD()
+    return getInventoryItemCD(14)
+end
+
+function getInventoryItemCD(itemSlot)
+    local startTime, duration, enable = GetInventoryItemCooldown("player", itemSlot)
     return startTime + duration - GetTime()
 end
 
