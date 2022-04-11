@@ -24,8 +24,16 @@ end
 function E.addHealthAndEnergyValues()
     E.serializationData.mh = UnitHealthMax("player");
     E.serializationData.ah = UnitHealth("player");
-    E.serializationData.me = UnitPowerMax("player");
-    E.serializationData.ae = UnitPower("player");
+
+    E.serializationData.maxMana = UnitPowerMax("player",0);
+    E.serializationData.mana = UnitPower("player", 0);
+
+    E.serializationData.maxRage = UnitPowerMax("player",1);
+    E.serializationData.rage = UnitPower("player", 1);
+
+    E.serializationData.maxEnergy = UnitPowerMax("player",2);
+    E.serializationData.energy = UnitPower("player", 2);
+
     E.serializationData.run = E.isRunning()
 end
 
