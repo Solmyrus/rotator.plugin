@@ -1,0 +1,16 @@
+## Interface: 20503
+## Title: Rotator
+## Author: VB
+## Version: 1.0.0
+
+bindings.xml
+lib\libs.xml
+core\globals.lua
+core\core.lua
+core\spellTools.lua
+core\communicationFrame.lua
+core\basicModule.lua
+classmodules\protWarrior.lua
+classmodules\balancedDruid.lua
+rotator.lua
+

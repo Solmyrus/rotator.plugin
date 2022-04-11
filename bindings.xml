@@ -1,0 +1,20 @@
+<Bindings>
+    <Binding name="Rotator - Active" description="Active rotation" header="ROTATOR">
+        toggleActive()
+    </Binding>
+    <Binding name="Rotator - toggle 1" description="Toggle 1" header="NEXT_SPELL">
+        toggleButton(1)
+    </Binding>
+    <Binding name="Rotator - toggle 2" description="Toggle 2" header="NEXT_SPELL">
+        toggleButton(2)
+    </Binding>
+    <Binding name="Rotator - toggle 3" description="Toggle 3" header="NEXT_SPELL">
+        toggleButton(3)
+    </Binding>
+    <Binding name="Rotator - toggle 4" description="Toggle 4" header="NEXT_SPELL">
+        toggleButton(4)
+    </Binding>
+    <Binding name="Rotator - toggle 5" description="Toggle 5" header="NEXT_SPELL">
+        toggleButton(5)
+    </Binding>
+</Bindings>
