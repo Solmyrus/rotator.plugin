@@ -6,74 +6,73 @@
 local _, E = ...
 
 E.BALANCED_DRUID_DATA = {}
+balaDruid = E.BALANCED_DRUID_DATA
 bf = E.BUTTON_FACTORY
 
-function E:initBalanceDruid()
+function balaDruid:initBalanceDruid()
     print("Initializing BALA")
-    local data = E.BALANCED_DRUID_DATA
 
-    data.balDruidFrame = CreateFrame("Frame", "BDruidFrame", UIParent)
+    balaDruid.frame = CreateFrame("Frame", "BDruidFrame", UIParent)
 
-    data.balDruidFrame:SetFrameStrata("TOOLTIP")
-    data.balDruidFrame:SetWidth(150)
-    data.balDruidFrame:SetHeight(120)
+    balaDruid.frame:SetFrameStrata("TOOLTIP")
+    balaDruid.frame:SetWidth(150)
+    balaDruid.frame:SetHeight(120)
 
-    data.combatTexture = data.balDruidFrame:CreateTexture(nil, "BACKGROUND")
-    data.combatTexture:SetPoint("BOTTOMLEFT", 0, 90)
-    data.combatTexture:SetSize(30, 30)
+    balaDruid.combatTexture = balaDruid.frame:CreateTexture(nil, "BACKGROUND")
+    balaDruid.combatTexture:SetPoint("BOTTOMLEFT", 0, 90)
+    balaDruid.combatTexture:SetSize(30, 30)
 
 
-    data.activeTexture = data.balDruidFrame:CreateTexture(nil, "BACKGROUND")
-    data.activeTexture:SetPoint("BOTTOMLEFT", 30, 90)
-    data.activeTexture:SetSize(120, 30)
+    balaDruid.activeTexture = balaDruid.frame:CreateTexture(nil, "BACKGROUND")
+    balaDruid.activeTexture:SetPoint("BOTTOMLEFT", 30, 90)
+    balaDruid.activeTexture:SetSize(120, 30)
 
-    data.toggleButtons = {}
-    data.activatingButtons = {}
+    balaDruid.toggleButtons = {}
+    balaDruid.activatingButtons = {}
 
     bf.setGlobalVariables(self, 30,30)
 
-    data.toggleButtons.moonFireButton = bf.createToggleButton(self,0,2, data.balDruidFrame, 136096)
-    data.toggleButtons.starFireButton = bf.createToggleButton(self,1,2, data.balDruidFrame, 135753)
-    data.toggleButtons.insectSwarmButton = bf.createToggleButton(self,2,2, data.balDruidFrame, 136045)
-    data.toggleButtons.faerieFireButton = bf.createToggleButton(self,3,2, data.balDruidFrame, 136033)
-    data.toggleButtons.runModeButton = bf.createToggleButton(self,4,2, data.balDruidFrame, 132539)
+    balaDruid.toggleButtons.moonFireButton = bf.createToggleButton(self,0,2, balaDruid.frame, 136096)
+    balaDruid.toggleButtons.starFireButton = bf.createToggleButton(self,1,2, balaDruid.frame, 135753)
+    balaDruid.toggleButtons.insectSwarmButton = bf.createToggleButton(self,2,2, balaDruid.frame, 136045)
+    balaDruid.toggleButtons.faerieFireButton = bf.createToggleButton(self,3,2, balaDruid.frame, 136033)
+    balaDruid.toggleButtons.runModeButton = bf.createToggleButton(self,4,2, balaDruid.frame, 132539)
 
 
-    data.activatingButtons.trinket1Button = bf.createTrinket1ActivatingButton(self,0,1, data.balDruidFrame, 135659)
-    data.activatingButtons.drumsButton = bf.createItemActivatingButton(self,1,1, data.balDruidFrame, 133842, 185848)
-    data.activatingButtons.destructionPotionButton = bf.createItemActivatingButton(self,0,0, data.balDruidFrame, 134729, 22839)
+    balaDruid.activatingButtons.trinket1Button = bf.createTrinket1ActivatingButton(self,0,1, balaDruid.frame, 135659)
+    balaDruid.activatingButtons.drumsButton = bf.createItemActivatingButton(self,1,1, balaDruid.frame, 133842, 185848)
+    balaDruid.activatingButtons.destructionPotionButton = bf.createItemActivatingButton(self,0,0, balaDruid.frame, 134729, 22839)
 
 
-    data.activatingButtons.manaPotionButton = bf.createItemActivatingButton(self,3,1, data.balDruidFrame, 134762,22832)
-    data.activatingButtons.darkRuneButton = bf.createItemActivatingButton(self,4,1, data.balDruidFrame, 136192, 20520)
-    data.activatingButtons.innervateButton = bf.createSpellActivatingButton(self,3,0, data.balDruidFrame, 136048, 29166)
+    balaDruid.activatingButtons.manaPotionButton = bf.createItemActivatingButton(self,3,1, balaDruid.frame, 134762,22832)
+    balaDruid.activatingButtons.darkRuneButton = bf.createItemActivatingButton(self,4,1, balaDruid.frame, 136192, 20520)
+    balaDruid.activatingButtons.innervateButton = bf.createSpellActivatingButton(self,3,0, balaDruid.frame, 136048, 29166)
 
 
-    data.balDruidFrame:SetPoint("CENTER", 0, 0)
-    data.balDruidFrame:SetMovable(true)
-    data.balDruidFrame:EnableMouse(true)
-    data.balDruidFrame:RegisterForDrag("LeftButton")
-    data.balDruidFrame:SetScript("OnDragStart", data.balDruidFrame.StartMoving)
-    data.balDruidFrame:SetScript("OnDragStop", data.balDruidFrame.StopMovingOrSizing)
+    balaDruid.frame:SetPoint("CENTER", 0, 0)
+    balaDruid.frame:SetMovable(true)
+    balaDruid.frame:EnableMouse(true)
+    balaDruid.frame:RegisterForDrag("LeftButton")
+    balaDruid.frame:SetScript("OnDragStart", balaDruid.frame.StartMoving)
+    balaDruid.frame:SetScript("OnDragStop", balaDruid.frame.StopMovingOrSizing)
 
-    E.actualizeBalanceDruidFrame()
-    data.balDruidFrame:Hide()
+    balaDruid.actualizeFrame()
+    balaDruid.frame:Hide()
 
 end
 
-function E:loadBalanceDruid()
-    E.BALANCED_DRUID_DATA.balDruidFrame:Show()
+function balaDruid:loadBalanceDruid()
+    balaDruid.frame:Show()
     print("Loading BALA")
 end
 
-function E:unloadBalanceDruid()
-    E.BALANCED_DRUID_DATA.balDruidFrame:Hide()
+function balaDruid:unloadBalanceDruid()
+    balaDruid.frame:Hide()
     print("Unloading BALA")
 end
 
-function E:updateBalanceDruid()
+function balaDruid:updateBalanceDruid()
 
-    local data = E.BALANCED_DRUID_DATA
     local serializationData = E.serializationData
 
     serializationData.profile = "bd_01";
@@ -84,61 +83,60 @@ function E:updateBalanceDruid()
     serializationData.pff = isUsableBySpellAndDebuff("Faerie Fire", "Faerie Fire", false, 5)
     serializationData.pis = isUsableBySpellAndDebuff("Insect Swarm", "Insect Swarm", false, 2)
 
-    serializationData.emf = data.toggleButtons.moonFireButton.value
-    serializationData.esf = data.toggleButtons.starFireButton.value
-    serializationData.eff = data.toggleButtons.faerieFireButton.value
-    serializationData.eis = data.toggleButtons.insectSwarmButton.value
-    serializationData.rm = data.toggleButtons.runModeButton.value
+    serializationData.emf = balaDruid.toggleButtons.moonFireButton.value
+    serializationData.esf = balaDruid.toggleButtons.starFireButton.value
+    serializationData.eff = balaDruid.toggleButtons.faerieFireButton.value
+    serializationData.eis = balaDruid.toggleButtons.insectSwarmButton.value
+    serializationData.rm = balaDruid.toggleButtons.runModeButton.value
 
-    serializationData.amp = data.activatingButtons.manaPotionButton.value
-    serializationData.adr = data.activatingButtons.darkRuneButton.value
-    serializationData.at = data.activatingButtons.trinket1Button.value
-    serializationData.ad = data.activatingButtons.drumsButton.value
-    serializationData.ai = data.activatingButtons.innervateButton.value
-    serializationData.adp = data.activatingButtons.destructionPotionButton.value
+    serializationData.amp = balaDruid.activatingButtons.manaPotionButton.value
+    serializationData.adr = balaDruid.activatingButtons.darkRuneButton.value
+    serializationData.at = balaDruid.activatingButtons.trinket1Button.value
+    serializationData.ad = balaDruid.activatingButtons.drumsButton.value
+    serializationData.ai = balaDruid.activatingButtons.innervateButton.value
+    serializationData.adp = balaDruid.activatingButtons.destructionPotionButton.value
 
-    E.actualizeBalanceDruidFrame()
+    balaDruid.actualizeFrame()
 end
 
-function E:actualizeBalanceDruidFrame()
+function balaDruid:actualizeFrame()
     if UnitAffectingCombat("Player") then
-        E.BALANCED_DRUID_DATA.combatTexture:SetColorTexture(0,1,0,0.5)
+        balaDruid.combatTexture:SetColorTexture(0,1,0,0.5)
     else
-        E.BALANCED_DRUID_DATA.combatTexture:SetColorTexture(1,0,0,0.5)
+        balaDruid.combatTexture:SetColorTexture(1,0,0,0.5)
     end
 
     if E.active then
-        E.BALANCED_DRUID_DATA.activeTexture:SetColorTexture(0,1,0,0.5)
+        balaDruid.activeTexture:SetColorTexture(0,1,0,0.5)
     else
         if UnitAffectingCombat("Player") then
-            E.BALANCED_DRUID_DATA.activeTexture:SetColorTexture(1,0.5,0,0.5)
+            balaDruid.activeTexture:SetColorTexture(1,0.5,0,0.5)
         else
-            E.BALANCED_DRUID_DATA.activeTexture:SetColorTexture(1,0,0,0.5)
+            balaDruid.activeTexture:SetColorTexture(1,0,0,0.5)
         end
     end
 
-    local data = E.BALANCED_DRUID_DATA
 
-    data.toggleButtons.moonFireButton.update()
-    data.toggleButtons.starFireButton.update()
-    data.toggleButtons.insectSwarmButton.update()
-    data.toggleButtons.faerieFireButton.update()
-    data.toggleButtons.runModeButton.update()
+    balaDruid.toggleButtons.moonFireButton.update()
+    balaDruid.toggleButtons.starFireButton.update()
+    balaDruid.toggleButtons.insectSwarmButton.update()
+    balaDruid.toggleButtons.faerieFireButton.update()
+    balaDruid.toggleButtons.runModeButton.update()
 
-    data.activatingButtons.trinket1Button.update()
-    data.activatingButtons.destructionPotionButton.update()
-    data.activatingButtons.drumsButton.update()
-    data.activatingButtons.manaPotionButton.update()
-    data.activatingButtons.darkRuneButton.update()
-    data.activatingButtons.innervateButton.update()
+    balaDruid.activatingButtons.trinket1Button.update()
+    balaDruid.activatingButtons.destructionPotionButton.update()
+    balaDruid.activatingButtons.drumsButton.update()
+    balaDruid.activatingButtons.manaPotionButton.update()
+    balaDruid.activatingButtons.darkRuneButton.update()
+    balaDruid.activatingButtons.innervateButton.update()
 
 end
 
 E.CLASS_CONFIGURATIONS["DRUID_BALANCE"] = {
     ['profileName'] = 'balance',
-    ['init'] = E.initBalanceDruid,
-    ['load'] = E.loadBalanceDruid,
-    ['unload'] = E.unloadBalanceDruid,
-    ['update'] = E.updateBalanceDruid,
+    ['init'] = balaDruid.initBalanceDruid,
+    ['load'] = balaDruid.loadBalanceDruid,
+    ['unload'] = balaDruid.unloadBalanceDruid,
+    ['update'] = balaDruid.updateBalanceDruid,
     ['toggleFunctions'] = {}
 }
