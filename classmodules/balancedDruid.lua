@@ -15,7 +15,7 @@ function E:initBalanceDruid()
 
     data.balDruidFrame:SetFrameStrata("TOOLTIP")
     data.balDruidFrame:SetWidth(150)
-    data.balDruidFrame:SetHeight(60)
+    data.balDruidFrame:SetHeight(90)
 
     data.combatTexture = data.balDruidFrame:CreateTexture(nil, "BACKGROUND")
     data.combatTexture:SetPoint("BOTTOMLEFT", 0, 60)

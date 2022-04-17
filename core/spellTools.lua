@@ -4,6 +4,7 @@
 --- DateTime: 17.03.2022 13:04
 ---
 
+
 function isUsableSpell(spellname)
     local usable = IsUsableSpell(spellname)
     local start, duration = GetSpellCooldown(spellname)
