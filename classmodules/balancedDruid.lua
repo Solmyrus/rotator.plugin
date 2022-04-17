@@ -6,6 +6,7 @@
 local _, E = ...
 
 E.BALANCED_DRUID_DATA = {}
+bf = E.BUTTON_FACTORY
 
 function E:initBalanceDruid()
     print("Initializing BALA")
@@ -15,84 +16,37 @@ function E:initBalanceDruid()
 
     data.balDruidFrame:SetFrameStrata("TOOLTIP")
     data.balDruidFrame:SetWidth(150)
-    data.balDruidFrame:SetHeight(90)
+    data.balDruidFrame:SetHeight(120)
 
     data.combatTexture = data.balDruidFrame:CreateTexture(nil, "BACKGROUND")
-    data.combatTexture:SetPoint("BOTTOMLEFT", 0, 60)
+    data.combatTexture:SetPoint("BOTTOMLEFT", 0, 90)
     data.combatTexture:SetSize(30, 30)
 
 
     data.activeTexture = data.balDruidFrame:CreateTexture(nil, "BACKGROUND")
-    data.activeTexture:SetPoint("BOTTOMLEFT", 30, 60)
+    data.activeTexture:SetPoint("BOTTOMLEFT", 30, 90)
     data.activeTexture:SetSize(120, 30)
 
-    _, data.mfTexture = E.createPanelSwitchButton(self, 0, 30, 30, 30, data.balDruidFrame, 136096,
-            function()
-                E.BALANCED_DRUID_DATA.moonfireEnabled = not E.BALANCED_DRUID_DATA.moonfireEnabled
-                E.actualizeBalanceDruidFrame()
-            end)
+    data.toggleButtons = {}
+    data.activatingButtons = {}
 
-    _, data.sfTexture = E.createPanelSwitchButton(self, 30, 30, 30, 30, data.balDruidFrame, 135753,
-            function()
-                E.BALANCED_DRUID_DATA.starfireEnabled = not E.BALANCED_DRUID_DATA.starfireEnabled
-                E.actualizeBalanceDruidFrame()
-            end)
+    bf.setGlobalVariables(self, 30,30)
 
-    _, data.isTexture = E.createPanelSwitchButton(self, 60, 30, 30, 30, data.balDruidFrame, 136045,
-            function()
-                E.BALANCED_DRUID_DATA.isEnabled = not E.BALANCED_DRUID_DATA.isEnabled
-                E.actualizeBalanceDruidFrame()
-            end)
-
-    _, data.ffTexture = E.createPanelSwitchButton(self, 90, 30, 30, 30, data.balDruidFrame, 136033,
-            function()
-                E.BALANCED_DRUID_DATA.ffEnabled = not E.BALANCED_DRUID_DATA.ffEnabled
-                E.actualizeBalanceDruidFrame()
-            end)
-
-    _, data.rmTexture = E.createPanelSwitchButton(self, 120, 30, 30, 30, data.balDruidFrame, 132539,
-            function()
-                E.BALANCED_DRUID_DATA.isRunningModeEnable = not E.BALANCED_DRUID_DATA.isRunningModeEnable
-                E.actualizeBalanceDruidFrame()
-            end)
+    data.toggleButtons.moonFireButton = bf.createToggleButton(self,0,2, data.balDruidFrame, 136096)
+    data.toggleButtons.starFireButton = bf.createToggleButton(self,1,2, data.balDruidFrame, 135753)
+    data.toggleButtons.insectSwarmButton = bf.createToggleButton(self,2,2, data.balDruidFrame, 136045)
+    data.toggleButtons.faerieFireButton = bf.createToggleButton(self,3,2, data.balDruidFrame, 136033)
+    data.toggleButtons.runModeButton = bf.createToggleButton(self,4,2, data.balDruidFrame, 132539)
 
 
-    _, data.activateManaPotionTexture = E.createPanelSwitchButton(self, 0, 0, 30, 30, data.balDruidFrame, 134762,
-            function()
-                E.BALANCED_DRUID_DATA.activateManaPotion = true
-                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateManaPotion = false end)
-                E.actualizeBalanceDruidFrame()
-            end)
-
-    _, data.activateDarkRuneTexture = E.createPanelSwitchButton(self, 30, 0, 30, 30, data.balDruidFrame, 136192,
-            function()
-                E.BALANCED_DRUID_DATA.activateDarkRune = true
-                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateDarkRune = false end)
-                E.actualizeBalanceDruidFrame()
-            end)
-
-    _, data.activateTrinketTexture = E.createPanelSwitchButton(self, 60, 0, 30, 30, data.balDruidFrame, 135659,
-            function()
-                E.BALANCED_DRUID_DATA.activateTrinket = true
-                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateTrinket = false end)
-                E.actualizeBalanceDruidFrame()
-            end)
-
-    _, data.activateDrumsTexture = E.createPanelSwitchButton(self, 90, 0, 30, 30, data.balDruidFrame, 133842,
-            function()
-                E.BALANCED_DRUID_DATA.activateDrums = true
-                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateDrums = false end)
-                E.actualizeBalanceDruidFrame()
-            end)
-
-    _, data.activateInnervateTexture = E.createPanelSwitchButton(self, 120, 0, 30, 30, data.balDruidFrame, 136048,
-            function()
-                E.BALANCED_DRUID_DATA.activateInnervate = true
-                C_Timer.After(15, function()  E.BALANCED_DRUID_DATA.activateInnervate = false end)
-                E.actualizeBalanceDruidFrame()
-            end)
+    data.activatingButtons.trinket1Button = bf.createTrinket1ActivatingButton(self,0,1, data.balDruidFrame, 135659)
+    data.activatingButtons.drumsButton = bf.createItemActivatingButton(self,1,1, data.balDruidFrame, 133842, 185848)
+    data.activatingButtons.destructionPotionButton = bf.createItemActivatingButton(self,0,0, data.balDruidFrame, 134729, 22839)
 
 
+    data.activatingButtons.manaPotionButton = bf.createItemActivatingButton(self,3,1, data.balDruidFrame, 134762,22832)
+    data.activatingButtons.darkRuneButton = bf.createItemActivatingButton(self,4,1, data.balDruidFrame, 136192, 20520)
+    data.activatingButtons.innervateButton = bf.createSpellActivatingButton(self,3,0, data.balDruidFrame, 136048, 29166)
 
 
     data.balDruidFrame:SetPoint("CENTER", 0, 0)
@@ -102,42 +56,9 @@ function E:initBalanceDruid()
     data.balDruidFrame:SetScript("OnDragStart", data.balDruidFrame.StartMoving)
     data.balDruidFrame:SetScript("OnDragStop", data.balDruidFrame.StopMovingOrSizing)
 
-    data.moonfireEnabled = false
-    data.starfireEnabled = false
-    data.ffEnabled = false
-    data.isEnabled = false
-    data.isRuningModeEnable = false
-    data.activateManaPotion = false
-    data.activateDarkRune = false
-    data.activateTrinket = false
-    data.activateDrums = false
-    data.activateInnervate = false
-
     E.actualizeBalanceDruidFrame()
     data.balDruidFrame:Hide()
 
-end
-
-function E:createPanelSwitchButton(x, y, width, height, parent, icon, switchFunction)
-    print(parent)
-
-    local button = CreateFrame("Button", nil, parent)
-    button:SetPoint("BOTTOMLEFT", x, y)
-    button:SetSize(width, height)
-
-    button:RegisterForClicks("AnyUp")
-    button:SetScript("OnClick", switchFunction)
-
-    local texture = button:CreateTexture(nil, "BACKGROUND")
-    texture:SetPoint("BOTTOMLEFT", 0, 0)
-    texture:SetSize(30, 30)
-    texture:SetTexture(icon);
-
-    local overlayTexture = button:CreateTexture(nil, "OVERLAY" )
-    overlayTexture:SetPoint("BOTTOMLEFT", 0, 0)
-    overlayTexture:SetSize(30, 30)
-
-    return button, overlayTexture
 end
 
 function E:loadBalanceDruid()
@@ -151,32 +72,30 @@ function E:unloadBalanceDruid()
 end
 
 function E:updateBalanceDruid()
-    E.serializationData.profile = "bd_01";
 
-    E.serializationData.pmfd = isUsableBySpellAndDebuff("Moonfire", "Moonfire", true, 0)
-    E.serializationData.pmf = isUsableSpell("Moonfire")
-    E.serializationData.psf = isUsableSpell("Starfire")
-    E.serializationData.pff = isUsableBySpellAndDebuff("Faerie Fire", "Faerie Fire", false, 5)
-    E.serializationData.pis = isUsableBySpellAndDebuff("Insect Swarm", "Insect Swarm", false, 2)
+    local data = E.BALANCED_DRUID_DATA
+    local serializationData = E.serializationData
 
-    if E.BALANCED_DRUID_DATA.activateManaPotion and getItemCD(22832) > 2 then E.BALANCED_DRUID_DATA.activateManaPotion = false end
-    if E.BALANCED_DRUID_DATA.activateDarkRune and getItemCD(20520) > 2 then E.BALANCED_DRUID_DATA.activateDarkRune = false end
-    if E.BALANCED_DRUID_DATA.activateTrinket and getTrinket1CD() > 2 then E.BALANCED_DRUID_DATA.activateTrinket = false end
-    if E.BALANCED_DRUID_DATA.activateDrums and getItemCD(185848) > 2 then E.BALANCED_DRUID_DATA.activateDrums = false end
-    if E.BALANCED_DRUID_DATA.activateInnervate and getSpellCD(29166) > 2 then E.BALANCED_DRUID_DATA.activateInnervate = false end
+    serializationData.profile = "bd_01";
 
+    serializationData.pmfd = isUsableBySpellAndDebuff("Moonfire", "Moonfire", true, 0)
+    serializationData.pmf = isUsableSpell("Moonfire")
+    serializationData.psf = isUsableSpell("Starfire")
+    serializationData.pff = isUsableBySpellAndDebuff("Faerie Fire", "Faerie Fire", false, 5)
+    serializationData.pis = isUsableBySpellAndDebuff("Insect Swarm", "Insect Swarm", false, 2)
 
-    E.serializationData.emf = E.BALANCED_DRUID_DATA.moonfireEnabled
-    E.serializationData.esf = E.BALANCED_DRUID_DATA.starfireEnabled
-    E.serializationData.eff = E.BALANCED_DRUID_DATA.ffEnabled
-    E.serializationData.eis = E.BALANCED_DRUID_DATA.isEnabled
-    E.serializationData.rm = E.BALANCED_DRUID_DATA.isRunningModeEnable
+    serializationData.emf = data.toggleButtons.moonFireButton.value
+    serializationData.esf = data.toggleButtons.starFireButton.value
+    serializationData.eff = data.toggleButtons.faerieFireButton.value
+    serializationData.eis = data.toggleButtons.insectSwarmButton.value
+    serializationData.rm = data.toggleButtons.runModeButton.value
 
-    E.serializationData.amp = E.BALANCED_DRUID_DATA.activateManaPotion
-    E.serializationData.adr = E.BALANCED_DRUID_DATA.activateDarkRune
-    E.serializationData.at = E.BALANCED_DRUID_DATA.activateTrinket
-    E.serializationData.ad = E.BALANCED_DRUID_DATA.activateDrums
-    E.serializationData.ai = E.BALANCED_DRUID_DATA.activateInnervate
+    serializationData.amp = data.activatingButtons.manaPotionButton.value
+    serializationData.adr = data.activatingButtons.darkRuneButton.value
+    serializationData.at = data.activatingButtons.trinket1Button.value
+    serializationData.ad = data.activatingButtons.drumsButton.value
+    serializationData.ai = data.activatingButtons.innervateButton.value
+    serializationData.adp = data.activatingButtons.destructionPotionButton.value
 
     E.actualizeBalanceDruidFrame()
 end
@@ -198,28 +117,21 @@ function E:actualizeBalanceDruidFrame()
         end
     end
 
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.mfTexture, E.BALANCED_DRUID_DATA.moonfireEnabled)
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.sfTexture, E.BALANCED_DRUID_DATA.starfireEnabled)
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.isTexture, E.BALANCED_DRUID_DATA.isEnabled)
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.ffTexture, E.BALANCED_DRUID_DATA.ffEnabled)
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.rmTexture, E.BALANCED_DRUID_DATA.isRunningModeEnable)
+    local data = E.BALANCED_DRUID_DATA
 
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateManaPotionTexture, E.BALANCED_DRUID_DATA.activateManaPotion)
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateDarkRuneTexture, E.BALANCED_DRUID_DATA.activateDarkRune)
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateTrinketTexture, E.BALANCED_DRUID_DATA.activateTrinket)
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateDrumsTexture, E.BALANCED_DRUID_DATA.activateDrums)
-    E.actualizeSwitchButtonTexture(self, E.BALANCED_DRUID_DATA.activateInnervateTexture, E.BALANCED_DRUID_DATA.activateInnervate)
+    data.toggleButtons.moonFireButton.update()
+    data.toggleButtons.starFireButton.update()
+    data.toggleButtons.insectSwarmButton.update()
+    data.toggleButtons.faerieFireButton.update()
+    data.toggleButtons.runModeButton.update()
 
-end
+    data.activatingButtons.trinket1Button.update()
+    data.activatingButtons.destructionPotionButton.update()
+    data.activatingButtons.drumsButton.update()
+    data.activatingButtons.manaPotionButton.update()
+    data.activatingButtons.darkRuneButton.update()
+    data.activatingButtons.innervateButton.update()
 
-function E:actualizeSwitchButtonTexture(texture, value)
-    if value then
-        texture:SetDesaturated(true);
-        texture:SetColorTexture(0,1,0,0.0)
-    else
-        texture:SetDesaturated(false);
-        texture:SetColorTexture(1,0,0,0.5)
-    end
 end
 
 E.CLASS_CONFIGURATIONS["DRUID_BALANCE"] = {

@@ -5,6 +5,7 @@
 
 bindings.xml
 lib\libs.xml
+classmodules\tools\buttonFactory.lua
 core\globals.lua
 core\core.lua
 core\spellTools.lua

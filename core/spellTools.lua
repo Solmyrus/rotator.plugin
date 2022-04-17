@@ -14,9 +14,13 @@ function isUsableSpell(spellname)
 end
 
 function isUsableBySpellAndDebuff(spellname, debuffname, playerAura, remainingTime)
-
     local usable = IsUsableSpell(spellname)
     local start, duration = GetSpellCooldown(spellname)
+
+    if start == nil or duration == nil then
+        return false
+    end
+
     local isCooldown = start > 0 and duration > 0
     local isAura = isAuraOnTarget(debuffname, playerAura, remainingTime);
 
