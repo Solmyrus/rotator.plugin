@@ -7,6 +7,9 @@
 
 local _, E = ...
 
+
+st = E.SPELL_TOOLS
+
 function E:addBaseData()
     if not UnitAffectingCombat("Player") then
         E.active = false
@@ -75,5 +78,5 @@ function E:isRunning()
 end
 
 function E:getGeneralPotionCD()
-    return getItemCD(22832) -- Super mana potion
+    return st.getItemCD(self, 22832) -- Super mana potion
 end

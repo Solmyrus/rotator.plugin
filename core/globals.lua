@@ -9,3 +9,6 @@ local _, E = ...
 E.CLASS_CONFIGURATIONS = {}
 E.ACTUAL_CONFIGURATION = nil
 E.active = false;
+
+E.CONSTANTS = {}
+E.CONSTANTS.PRECAST_TIME = 0.2

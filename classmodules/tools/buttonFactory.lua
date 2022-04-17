@@ -8,6 +8,8 @@ bf.constants.ACTIVATED = "ACTIVE"
 bf.constants.INACTIVE = "INACTIVE"
 bf.constants.UNUSABLE = "UNUSABLE"
 
+st = E.SPELL_TOOLS
+
 function bf:setGlobalVariables(width, height)
     bf.variables.width = width;
     bf.variables.height = height
@@ -32,7 +34,6 @@ function bf:createToggleButton(x, y, parent, icon)
         end
     end
 
-
     buttonObject.update()
     return buttonObject
 end
@@ -40,8 +41,8 @@ end
 function bf:createTrinket1ActivatingButton(x, y, parent, icon)
     local buttonObject = bf:createActivatingButton(x, y, parent, icon)
 
-    buttonObject.coolDownFunction =  function()
-        if getTrinket1CD() > 2 then
+    buttonObject.coolDownFunction = function()
+        if st.getTrinket1CD(self) > 2 then
             buttonObject.value = bf.constants.UNUSABLE;
         else
             if buttonObject.value == bf.constants.UNUSABLE then
@@ -58,8 +59,8 @@ end
 function bf:createTrinket2ActivatingButton(x, y, parent, icon)
     local buttonObject = bf:createActivatingButton(x, y, parent, icon)
 
-    buttonObject.coolDownFunction =  function()
-        if getTrinket2CD() > 2 then
+    buttonObject.coolDownFunction = function()
+        if st.getTrinket2CD(self) > 2 then
             buttonObject.value = bf.constants.UNUSABLE;
         else
             if buttonObject.value == bf.constants.UNUSABLE then
@@ -73,12 +74,11 @@ function bf:createTrinket2ActivatingButton(x, y, parent, icon)
     return buttonObject
 end
 
-
 function bf:createItemActivatingButton(x, y, parent, icon, itemID)
     local buttonObject = bf:createActivatingButton(x, y, parent, icon)
 
-    buttonObject.coolDownFunction =  function()
-        if getItemCD(itemID) > 2 then
+    buttonObject.coolDownFunction = function()
+        if st.getItemCD(self, itemID) > 2 then
             buttonObject.value = bf.constants.UNUSABLE;
         else
             if buttonObject.value == bf.constants.UNUSABLE then
@@ -95,8 +95,8 @@ end
 function bf:createSpellActivatingButton(x, y, parent, icon, spellID)
     local buttonObject = bf:createActivatingButton(x, y, parent, icon)
 
-    buttonObject.coolDownFunction =  function()
-        if getSpellCD(spellID) > 2 then
+    buttonObject.coolDownFunction = function()
+        if st.getSpellCD(self,spellID) > 2 then
             buttonObject.value = bf.constants.UNUSABLE;
         else
             if buttonObject.value == bf.constants.UNUSABLE then
@@ -126,7 +126,6 @@ function bf:createActivatingButton(x, y, parent, icon)
     end)
 
     buttonObject.update = function()
-
         buttonObject.coolDownFunction(buttonObject)
 
         if buttonObject.value == bf.constants.UNUSABLE then
@@ -137,6 +136,12 @@ function bf:createActivatingButton(x, y, parent, icon)
             buttonObject.overlayTexture:SetColorTexture(0, 1, 0, 0.0)
         end
     end
+
+    buttonObject.isActivated = function()
+        if buttonObject.value == bf.constants.ACTIVATED then return true
+        else return false end
+    end
+
     return buttonObject
 
 end
@@ -160,7 +165,6 @@ function bf:createButton(x, y, parent, icon)
     buttonObject.overlayTexture = buttonObject.button:CreateTexture(nil, "OVERLAY")
     buttonObject.overlayTexture:SetPoint("BOTTOMLEFT", 0, 0)
     buttonObject.overlayTexture:SetSize(bf.variables.width, bf.variables.height)
-
 
     return buttonObject
 end

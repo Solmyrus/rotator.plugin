@@ -8,6 +8,7 @@ local _, E = ...
 E.BALANCED_DRUID_DATA = {}
 balaDruid = E.BALANCED_DRUID_DATA
 bf = E.BUTTON_FACTORY
+st = E.SPELL_TOOLS
 
 function balaDruid:initBalanceDruid()
     print("Initializing BALA")
@@ -77,11 +78,11 @@ function balaDruid:updateBalanceDruid()
 
     serializationData.profile = "bd_01";
 
-    serializationData.pmfd = isUsableBySpellAndDebuff("Moonfire", "Moonfire", true, 0)
-    serializationData.pmf = isUsableSpell("Moonfire")
-    serializationData.psf = isUsableSpell("Starfire")
-    serializationData.pff = isUsableBySpellAndDebuff("Faerie Fire", "Faerie Fire", false, 5)
-    serializationData.pis = isUsableBySpellAndDebuff("Insect Swarm", "Insect Swarm", false, 2)
+    serializationData.pmfd = st.isUsableBySpellAndDebuff(self,"Moonfire", "Moonfire", true, 0)
+    serializationData.pmf = st.isUsableSpell(self,"Moonfire")
+    serializationData.psf = st.isUsableSpell(self,"Starfire")
+    serializationData.pff = st.isUsableBySpellAndDebuff(self,"Faerie Fire", "Faerie Fire", false, 5)
+    serializationData.pis = st.isUsableBySpellAndDebuff(self,"Insect Swarm", "Insect Swarm", false, 2)
 
     serializationData.emf = balaDruid.toggleButtons.moonFireButton.value
     serializationData.esf = balaDruid.toggleButtons.starFireButton.value
@@ -89,12 +90,12 @@ function balaDruid:updateBalanceDruid()
     serializationData.eis = balaDruid.toggleButtons.insectSwarmButton.value
     serializationData.rm = balaDruid.toggleButtons.runModeButton.value
 
-    serializationData.amp = balaDruid.activatingButtons.manaPotionButton.value
-    serializationData.adr = balaDruid.activatingButtons.darkRuneButton.value
-    serializationData.at = balaDruid.activatingButtons.trinket1Button.value
-    serializationData.ad = balaDruid.activatingButtons.drumsButton.value
-    serializationData.ai = balaDruid.activatingButtons.innervateButton.value
-    serializationData.adp = balaDruid.activatingButtons.destructionPotionButton.value
+    serializationData.amp = balaDruid.activatingButtons.manaPotionButton.isActivated()
+    serializationData.adr = balaDruid.activatingButtons.darkRuneButton.isActivated()
+    serializationData.at = balaDruid.activatingButtons.trinket1Button.isActivated()
+    serializationData.ad = balaDruid.activatingButtons.drumsButton.isActivated()
+    serializationData.ai = balaDruid.activatingButtons.innervateButton.isActivated()
+    serializationData.adp = balaDruid.activatingButtons.destructionPotionButton.isActivated()
 
     balaDruid.actualizeFrame()
 end
