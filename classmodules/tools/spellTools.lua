@@ -59,11 +59,11 @@ function st:getItemCD(itemID)
 end
 
 function st:getTrinket1CD()
-    return st.getInventoryItemCD(13)
+    return st.getInventoryItemCD(self,13)
 end
 
 function st:getTrinket2CD()
-    return st.getInventoryItemCD(14)
+    return st.getInventoryItemCD(self,14)
 end
 
 function st:getInventoryItemCD(itemSlot)
