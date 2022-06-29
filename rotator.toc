@@ -13,5 +13,6 @@ core\communicationFrame.lua
 core\basicModule.lua
 classmodules\protWarrior.lua
 classmodules\balancedDruid.lua
+classmodules\shadowPriest.lua
 rotator.lua
 

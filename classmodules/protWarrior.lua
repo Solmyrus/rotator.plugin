@@ -6,6 +6,7 @@
 local _, E = ...
 
 E.PROTWAR_DATA = {}
+st = E.SPELL_TOOLS
 
 function E:initProtWar()
     E.PROTWAR_DATA.protWarriorFrame = CreateFrame("Frame", "nil", UIParent)
@@ -39,11 +40,11 @@ end
 function E:updateProtWar()
     E.serializationData.profile = "pw_01";
 
-    E.serializationData.rev = isUsableSpell("Revenge");
-    E.serializationData.ss = isUsableSpell("Shield Slam");
-    E.serializationData.sb = isUsableSpell("Shield Block");
-    E.serializationData.dev = isUsableSpell("Devastate");
-    E.serializationData.hs = isUsableSpell("Heroic Strike");
+    E.serializationData.rev = st.isUsableSpell(self,"Revenge");
+    E.serializationData.ss = st.isUsableSpell(self,"Shield Slam");
+    E.serializationData.sb = st.isUsableSpell(self,"Shield Block");
+    E.serializationData.dev = st.isUsableSpell(self,"Devastate");
+    E.serializationData.hs = st.isUsableSpell(self,"Heroic Strike");
 
     if E.active then
         E.PROTWAR_DATA.activeTexture:SetColorTexture(0, 1, 0, 0.5);

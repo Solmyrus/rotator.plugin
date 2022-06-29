@@ -7,7 +7,6 @@
 
 local _, E = ...
 
-
 st = E.SPELL_TOOLS
 
 function E:addBaseData()
@@ -28,18 +27,27 @@ function E.addHealthAndEnergyValues()
     E.serializationData.mh = UnitHealthMax("player");
     E.serializationData.ah = UnitHealth("player");
 
-    E.serializationData.maxMana = UnitPowerMax("player",0);
+    E.serializationData.maxMana = UnitPowerMax("player", 0);
     E.serializationData.mana = UnitPower("player", 0);
 
-    E.serializationData.maxRage = UnitPowerMax("player",1);
+    E.serializationData.maxRage = UnitPowerMax("player", 1);
     E.serializationData.rage = UnitPower("player", 1);
 
-    E.serializationData.maxEnergy = UnitPowerMax("player",2);
+    E.serializationData.maxEnergy = UnitPowerMax("player", 2);
     E.serializationData.energy = UnitPower("player", 2);
 
     E.serializationData.run = E.isRunning()
-end
 
+    if (UnitName("target") == nil) then
+        E.serializationData.tn = ""
+    else
+        E.serializationData.tn = UnitName("target")
+
+    end
+
+    E.serializationData.th = UnitHealth("target");
+
+end
 
 function E.addCastingInfoValues()
     local spellName, _, _, _, spellEndTime = UnitCastingInfo("player")
@@ -47,11 +55,11 @@ function E.addCastingInfoValues()
 
     if not (spellName == nil) then
         E.serializationData.cast = "SPELL"
-        E.serializationData.castTimeRem = spellEndTime/1000 - GetTime()
+        E.serializationData.castTimeRem = spellEndTime / 1000 - GetTime()
 
     elseif not (channelName == nil) then
         E.serializationData.cast = "CHANNEL"
-        E.serializationData.castTimeRem = channelEndTime/1000 - GetTime()
+        E.serializationData.castTimeRem = channelEndTime / 1000 - GetTime()
 
     else
         E.serializationData.cast = "NONE"
@@ -69,8 +77,6 @@ function E.addThreatInfoValues()
     E.serializationData.thtRP = rawPercentage;
     E.serializationData.thtV = threatValue;
 end
-
-
 
 function E:isRunning()
     currentSpeed, _, _, _ = GetUnitSpeed("player")
