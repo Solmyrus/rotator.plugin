@@ -15,6 +15,56 @@ function bf:setGlobalVariables(width, height)
     bf.variables.height = height
 end
 
+function bf:createSwitch(x, y, parent, buttonsData)
+    local buttonsObject = {}
+    buttonsObject.objects = {}
+
+    for i, buttonData in pairs(buttonsData) do
+        local buttonObject = bf:createButton(x+i-1, y, parent, buttonData.icon)
+        buttonObject.textValue = buttonData.textValue;
+        buttonObject.value = false;
+        table.insert(buttonsObject.objects, buttonObject)
+    end
+
+    print(buttonsObject)
+
+    for i, buttonObject in ipairs(buttonsObject.objects) do
+        buttonObject.button:SetScript("OnClick",
+                function()
+                    for i, buttonObject in ipairs(buttonsObject.objects) do
+                        buttonObject.value = false
+                    end
+
+                    buttonObject.value = true
+                    buttonsObject.textValue = buttonObject.textValue;
+                    buttonsObject.update()
+
+                end
+        )
+
+        buttonObject.update = function()
+            if buttonObject.value then
+                buttonObject.overlayTexture:SetColorTexture(0, 1, 0, 0.5)
+            else
+                buttonObject.overlayTexture:SetColorTexture(1, 0, 0, 0.0)
+            end
+        end
+
+        buttonObject.update()
+    end
+
+    buttonsObject.update = function()
+        for i, buttonObject in ipairs(buttonsObject.objects) do
+            buttonObject.update()
+        end
+    end
+
+    return buttonsObject;
+
+end
+
+
+
 function bf:createToggleButton(x, y, parent, icon)
     local buttonObject = bf:createButton(x, y, parent, icon)
     buttonObject.value = false;
