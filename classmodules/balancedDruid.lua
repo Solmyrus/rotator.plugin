@@ -39,9 +39,10 @@ function balaDruid:initBalanceDruid()
     balaDruid.toggleButtons.faerieFireButton = bf.createToggleButton(self,3,2, balaDruid.frame, 136033)
     balaDruid.toggleButtons.runModeButton = bf.createToggleButton(self,4,2, balaDruid.frame, 132539)
 
+    balaDruid.toggleButtons.threatLockButton = bf.createToggleButton(self,4,0, balaDruid.frame, 136150)
 
     balaDruid.activatingButtons.trinket1Button = bf.createTrinket1ActivatingButton(self,0,1, balaDruid.frame, 135659)
-    balaDruid.activatingButtons.drumsButton = bf.createItemActivatingButton(self,1,1, balaDruid.frame, 133842, 185848)
+    -- balaDruid.activatingButtons.drumsButton = bf.createItemActivatingButton(self,1,1, balaDruid.frame, 133842, 185848)
     balaDruid.activatingButtons.destructionPotionButton = bf.createItemActivatingButton(self,0,0, balaDruid.frame, 134729, 22839)
 
 
@@ -90,10 +91,12 @@ function balaDruid:updateBalanceDruid()
     serializationData.eis = balaDruid.toggleButtons.insectSwarmButton.value
     serializationData.rm = balaDruid.toggleButtons.runModeButton.value
 
+    serializationData.tl = balaDruid.toggleButtons.threatLockButton.value
+
     serializationData.amp = balaDruid.activatingButtons.manaPotionButton.isActivated()
     serializationData.adr = balaDruid.activatingButtons.darkRuneButton.isActivated()
     serializationData.at = balaDruid.activatingButtons.trinket1Button.isActivated()
-    serializationData.ad = balaDruid.activatingButtons.drumsButton.isActivated()
+    -- serializationData.ad = balaDruid.activatingButtons.drumsButton.isActivated()
     serializationData.ai = balaDruid.activatingButtons.innervateButton.isActivated()
     serializationData.adp = balaDruid.activatingButtons.destructionPotionButton.isActivated()
 
@@ -123,10 +126,11 @@ function balaDruid:actualizeFrame()
     balaDruid.toggleButtons.insectSwarmButton.update()
     balaDruid.toggleButtons.faerieFireButton.update()
     balaDruid.toggleButtons.runModeButton.update()
+    balaDruid.toggleButtons.threatLockButton.update()
 
     balaDruid.activatingButtons.trinket1Button.update()
     balaDruid.activatingButtons.destructionPotionButton.update()
-    balaDruid.activatingButtons.drumsButton.update()
+    -- balaDruid.activatingButtons.drumsButton.update()
     balaDruid.activatingButtons.manaPotionButton.update()
     balaDruid.activatingButtons.darkRuneButton.update()
     balaDruid.activatingButtons.innervateButton.update()

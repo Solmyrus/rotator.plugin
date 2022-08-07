@@ -66,7 +66,7 @@ function shp:update()
 
     local serializationData = E.serializationData
 
-    serializationData.profile = "bd_01";
+    serializationData.profile = "sh_01";
 
     serializationData.pmb = st.isUsableSpell(self,"Mind Blast")
     serializationData.pvt = st.isUsableBySpellAndDebuff(self,"Vampiric Touch", "Vampiric Touch", true, 0)
@@ -75,11 +75,11 @@ function shp:update()
     serializationData.pmf = st.isUsableSpell(self,"Mind Flay")
 
 
-    serializationData.pmb = shp.toggleButtons.mindBlastButton.value
-    serializationData.pvt = shp.toggleButtons.vampiricTouchButton.value
-    serializationData.pswp = shp.toggleButtons.swPainButton.value
-    serializationData.pve = shp.toggleButtons.vampiricEmbraceButton.value
-    serializationData.pmf = shp.toggleButtons.mindFlayButton.value
+    serializationData.amb = shp.toggleButtons.mindBlastButton.value
+    serializationData.avt = shp.toggleButtons.vampiricTouchButton.value
+    serializationData.aswp = shp.toggleButtons.swPainButton.value
+    serializationData.ave = shp.toggleButtons.vampiricEmbraceButton.value
+    serializationData.amf = shp.toggleButtons.mindFlayButton.value
 
     shp.actualizeFrame()
 end
