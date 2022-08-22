@@ -38,6 +38,7 @@ function shp:init()
     shp.toggleButtons.swPainButton = bf.createToggleButton(self,2,2, shp.frame, 136207)
     shp.toggleButtons.vampiricEmbraceButton = bf.createToggleButton(self,3,2, shp.frame, 136230)
     shp.toggleButtons.mindFlayButton = bf.createToggleButton(self,4,2, shp.frame, 136208)
+    shp.toggleButtons.pwShieldButton = bf.createToggleButton(self,0,1, shp.frame, 135940)
 
 
     shp.frame:SetPoint("CENTER", 0, 0)
@@ -73,6 +74,7 @@ function shp:update()
     serializationData.pswp = st.isUsableBySpellAndDebuff(self,"Shadow Word: Pain", "Shadow Word: Pain", true, 0)
     serializationData.pve = st.isUsableBySpellAndDebuff(self,"Vampiric Embrace", "Vampiric Embrace", true, 0)
     serializationData.pmf = st.isUsableSpell(self,"Mind Flay")
+    serializationData.ppws = st.isUsableSpell(self,"Power Word: Shield")
 
 
     serializationData.amb = shp.toggleButtons.mindBlastButton.value
@@ -80,6 +82,7 @@ function shp:update()
     serializationData.aswp = shp.toggleButtons.swPainButton.value
     serializationData.ave = shp.toggleButtons.vampiricEmbraceButton.value
     serializationData.amf = shp.toggleButtons.mindFlayButton.value
+    serializationData.apws = shp.toggleButtons.pwShieldButton.value
 
     shp.actualizeFrame()
 end
@@ -107,6 +110,7 @@ function shp:actualizeFrame()
     shp.toggleButtons.swPainButton.update()
     shp.toggleButtons.vampiricEmbraceButton.update()
     shp.toggleButtons.mindFlayButton.update()
+    shp.toggleButtons.pwShieldButton.update()
 
 end
 
