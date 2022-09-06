@@ -48,6 +48,26 @@ function st:isAuraOnTarget(auraname, playerAura, remainingTime)
     return false;
 end
 
+
+function st:isAuraOnPlayer(auraname, remainingTime)
+    for i = 0, 50 do
+        local modifier = "HELPFUL";
+
+        local name, _, _, _, _, expirationTime = UnitAura("player", i, modifier)
+
+        if (auraname == name) then
+            local actualRemainingTime = expirationTime - GetTime();
+
+            if (actualRemainingTime < remainingTime) then
+                return false
+            end
+            return true
+        end
+    end
+
+    return false;
+end
+
 function st:getSpellCD(spellID)
     local startTime, duration = GetSpellCooldown(spellID)
     return startTime + duration - GetTime()
