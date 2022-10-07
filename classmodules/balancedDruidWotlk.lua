@@ -14,6 +14,7 @@ function balaDruidWotlk_01:initBalanceDruid()
     print("Initializing BALA WOTLK")
 
     balaDruidWotlk_01.frame = CreateFrame("Frame", "BDruidWOTLKFrame", UIParent)
+    balaDruidWotlk_01.frame:SetPoint("BOTTOMLEFT", 100, 100)
 
     balaDruidWotlk_01.frame:SetFrameStrata("TOOLTIP")
     balaDruidWotlk_01.frame:SetWidth(150)
@@ -101,6 +102,8 @@ function balaDruidWotlk_01:updateBalanceDruid()
     serializationData.sea = st.isAuraOnPlayer(self, "Eclipse (Solar)",  0)
     serializationData.lea = st.isAuraOnPlayer(self, "Eclipse (Lunar)",  0)
 
+    serializationData.pc = balaDruidWotlk_01.priorityCast
+
 
 
     balaDruidWotlk_01.actualizeFrame()
@@ -141,11 +144,17 @@ function balaDruidWotlk_01:actualizeFrame()
 
 end
 
+function balaDruidWotlk_01:useFunction(useCommand)
+    balaDruidWotlk_01.priorityCast = useCommand;
+end
+
+
 E.CLASS_CONFIGURATIONS["DRUID_BALANCE_WOTLK"] = {
     ['profileName'] = 'balance_wotlk',
     ['init'] = balaDruidWotlk_01.initBalanceDruid,
     ['load'] = balaDruidWotlk_01.loadBalanceDruid,
     ['unload'] = balaDruidWotlk_01.unloadBalanceDruid,
     ['update'] = balaDruidWotlk_01.updateBalanceDruid,
-    ['toggleFunctions'] = {}
+    ['toggleFunctions'] = {},
+    ['useFunction'] = balaDruidWotlk_01.useFunction
 }

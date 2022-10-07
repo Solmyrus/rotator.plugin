@@ -63,6 +63,14 @@ function SlashCmdList.ROTATOR(msg)
         end
     end
 
+    if chunks[1] == "use" then
+        if E.ACTUAL_CONFIGURATION == nil then
+            print("Nic nenaloadovano")
+        else
+            E.ACTUAL_CONFIGURATION['useFunction'](self, chunks[2])
+        end
+    end
+
     if chunks[1] == "unload" then
         E.unloadProfile()
     end

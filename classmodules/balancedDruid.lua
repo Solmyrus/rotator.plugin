@@ -130,7 +130,6 @@ function balaDruid:actualizeFrame()
 
     balaDruid.activatingButtons.trinket1Button.update()
     balaDruid.activatingButtons.destructionPotionButton.update()
-    -- balaDruid.activatingButtons.drumsButton.update()
     balaDruid.activatingButtons.manaPotionButton.update()
     balaDruid.activatingButtons.darkRuneButton.update()
     balaDruid.activatingButtons.innervateButton.update()
