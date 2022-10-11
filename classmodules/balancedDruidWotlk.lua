@@ -18,15 +18,15 @@ function balaDruidWotlk_01:initBalanceDruid()
 
     balaDruidWotlk_01.frame:SetFrameStrata("TOOLTIP")
     balaDruidWotlk_01.frame:SetWidth(150)
-    balaDruidWotlk_01.frame:SetHeight(120)
+    balaDruidWotlk_01.frame:SetHeight(60)
 
     balaDruidWotlk_01.combatTexture = balaDruidWotlk_01.frame:CreateTexture(nil, "BACKGROUND")
-    balaDruidWotlk_01.combatTexture:SetPoint("BOTTOMLEFT", 0, 90)
+    balaDruidWotlk_01.combatTexture:SetPoint("BOTTOMLEFT", 0, 0)
     balaDruidWotlk_01.combatTexture:SetSize(30, 30)
 
 
     balaDruidWotlk_01.activeTexture = balaDruidWotlk_01.frame:CreateTexture(nil, "BACKGROUND")
-    balaDruidWotlk_01.activeTexture:SetPoint("BOTTOMLEFT", 30, 90)
+    balaDruidWotlk_01.activeTexture:SetPoint("BOTTOMLEFT", 30, 0)
     balaDruidWotlk_01.activeTexture:SetSize(120, 30)
 
     balaDruidWotlk_01.toggleButtons = {}
@@ -35,18 +35,12 @@ function balaDruidWotlk_01:initBalanceDruid()
 
     bf.setGlobalVariables(self, 30,30)
 
-    balaDruidWotlk_01.toggleButtons.starFallButton = bf.createToggleButton(self,2,2, balaDruidWotlk_01.frame, 236168)
-    balaDruidWotlk_01.toggleButtons.faerieFireButton = bf.createToggleButton(self,3,2, balaDruidWotlk_01.frame, 136033)
-    balaDruidWotlk_01.toggleButtons.threatLockButton = bf.createToggleButton(self,4,0, balaDruidWotlk_01.frame, 136150)
-    balaDruidWotlk_01.toggleButtons.moonFireButton = bf.createToggleButton(self,0,2, balaDruidWotlk_01.frame, 136096)
-    balaDruidWotlk_01.toggleButtons.insectSwarmButton = bf.createToggleButton(self,1,2, balaDruidWotlk_01.frame, 136045)
+    balaDruidWotlk_01.toggleButtons.dotsButton = bf.createToggleButton(self,0,1, balaDruidWotlk_01.frame, 136096)
+    balaDruidWotlk_01.toggleButtons.starFallButton = bf.createToggleButton(self,1,1, balaDruidWotlk_01.frame, 236168)
 
-
-    balaDruidWotlk_01.activatingButtons.trinket1Button = bf.createTrinket1ActivatingButton(self,0,1, balaDruidWotlk_01.frame, 135659)
-    balaDruidWotlk_01.activatingButtons.destructionPotionButton = bf.createItemActivatingButton(self,0,0, balaDruidWotlk_01.frame, 134729, 22839)
-    balaDruidWotlk_01.activatingButtons.manaPotionButton = bf.createItemActivatingButton(self,3,1, balaDruidWotlk_01.frame, 134762,22832)
-    balaDruidWotlk_01.activatingButtons.darkRuneButton = bf.createItemActivatingButton(self,4,1, balaDruidWotlk_01.frame, 136192, 20520)
-    balaDruidWotlk_01.activatingButtons.innervateButton = bf.createSpellActivatingButton(self,3,0, balaDruidWotlk_01.frame, 136048, 29166)
+    balaDruidWotlk_01.activatingButtons.potion1button = bf.createItemActivatingButton(self,2,1, balaDruidWotlk_01.frame, 236869 , 33448)
+    balaDruidWotlk_01.activatingButtons.potion2button = bf.createItemActivatingButton(self,3,1, balaDruidWotlk_01.frame, 236868,54222)
+    balaDruidWotlk_01.activatingButtons.innervateButton = bf.createSpellActivatingButton(self,4,1, balaDruidWotlk_01.frame, 136048, 29166)
 
 
     balaDruidWotlk_01.frame:SetPoint("CENTER", 0, 0)
@@ -77,12 +71,10 @@ function balaDruidWotlk_01:updateBalanceDruid()
 
     serializationData.profile = "bd_wotlk_01";
 
-    serializationData.tl = balaDruidWotlk_01.toggleButtons.threatLockButton.value
-
     serializationData.esfa = balaDruidWotlk_01.toggleButtons.starFallButton.value
-    serializationData.eff = balaDruidWotlk_01.toggleButtons.faerieFireButton.value
-    serializationData.emf = balaDruidWotlk_01.toggleButtons.moonFireButton.value
-    serializationData.eis = balaDruidWotlk_01.toggleButtons.insectSwarmButton.value
+    serializationData.eff = balaDruidWotlk_01.toggleButtons.dotsButton.value
+    serializationData.emf = balaDruidWotlk_01.toggleButtons.dotsButton.value
+    serializationData.eis = balaDruidWotlk_01.toggleButtons.dotsButton.value
 
 
     serializationData.psf = st.isUsableSpell(self,"Starfire")
@@ -93,18 +85,14 @@ function balaDruidWotlk_01:updateBalanceDruid()
     serializationData.pis = st.isUsableBySpellAndDebuff(self,"Insect Swarm", "Insect Swarm", false, 0)
 
 
-    serializationData.amp = balaDruidWotlk_01.activatingButtons.manaPotionButton.isActivated()
-    serializationData.adr = balaDruidWotlk_01.activatingButtons.darkRuneButton.isActivated()
-    serializationData.at = balaDruidWotlk_01.activatingButtons.trinket1Button.isActivated()
+    serializationData.ap1 = balaDruidWotlk_01.activatingButtons.potion1button.isActivated()
+    serializationData.ap2 = balaDruidWotlk_01.activatingButtons.potion2button.isActivated()
     serializationData.ai = balaDruidWotlk_01.activatingButtons.innervateButton.isActivated()
-    serializationData.adp = balaDruidWotlk_01.activatingButtons.destructionPotionButton.isActivated()
 
     serializationData.sea = st.isAuraOnPlayer(self, "Eclipse (Solar)",  0)
     serializationData.lea = st.isAuraOnPlayer(self, "Eclipse (Lunar)",  0)
 
     serializationData.pc = balaDruidWotlk_01.priorityCast
-
-
 
     balaDruidWotlk_01.actualizeFrame()
 end
@@ -126,22 +114,14 @@ function balaDruidWotlk_01:actualizeFrame()
         end
     end
 
-    balaDruidWotlk_01.toggleButtons.threatLockButton.update()
 
+    balaDruidWotlk_01.toggleButtons.dotsButton.update()
     balaDruidWotlk_01.toggleButtons.starFallButton.update()
-    balaDruidWotlk_01.toggleButtons.faerieFireButton.update()
-    balaDruidWotlk_01.toggleButtons.moonFireButton.update()
-    balaDruidWotlk_01.toggleButtons.insectSwarmButton.update()
 
-    balaDruidWotlk_01.activatingButtons.trinket1Button.update()
-    balaDruidWotlk_01.activatingButtons.destructionPotionButton.update()
-    balaDruidWotlk_01.activatingButtons.manaPotionButton.update()
-    balaDruidWotlk_01.activatingButtons.darkRuneButton.update()
-    balaDruidWotlk_01.activatingButtons.innervateButton.update()
+    balaDruidWotlk_01.activatingButtons.potion1button.update()
+    balaDruidWotlk_01.activatingButtons.potion2button.update()
 
     balaDruidWotlk_01.activatingButtons.innervateButton.update()
-    balaDruidWotlk_01.activatingButtons.innervateButton.update()
-
 end
 
 function balaDruidWotlk_01:useFunction(useCommand)

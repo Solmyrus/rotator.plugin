@@ -58,7 +58,6 @@ end
 function E:updateComBar()
     local data = E.json.encode(E.serializationData)
 
-
     for x = 1, E.CONFIGURATION.SQUARE_COUNT do
         local t = E.innerTextures[x]
 
